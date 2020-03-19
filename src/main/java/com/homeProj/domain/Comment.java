@@ -1,58 +1,20 @@
 package com.homeProj.domain;
 
-import java.util.Objects;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
+@NoArgsConstructor
+@Data
 public class Comment {
-	
+
 	@Id
 	@GeneratedValue
 	private Long id;
 	private String body;
-
-	public Comment() {
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getBody() {
-		return body;
-	}
-
-	public void setBody(String body) {
-		this.body = body;
-	}
-
-	@Override
-	public String toString() {
-		return "Comment [id=" + id + ", body=" + body + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(body, id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof Comment)) {
-			return false;
-		}
-		Comment other = (Comment) obj;
-		return Objects.equals(body, other.body) && Objects.equals(id, other.id);
-	}
 
 }
