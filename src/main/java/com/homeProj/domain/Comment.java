@@ -6,11 +6,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class Comment extends Auditable {
 
 	@Id
