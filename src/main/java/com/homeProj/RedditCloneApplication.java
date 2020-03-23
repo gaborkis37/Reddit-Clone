@@ -5,9 +5,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
 
 import com.homeProj.config.SpringitProperties;
+import com.homeProj.domain.Comment;
+import com.homeProj.domain.Link;
+import com.homeProj.repository.CommentRepository;
+import com.homeProj.repository.LinkRepository;
 
 @SpringBootApplication
 @EnableConfigurationProperties(SpringitProperties.class)
@@ -19,10 +22,19 @@ public class RedditCloneApplication {
 
 	
 	@Bean
-	@Profile("dev")
-	CommandLineRunner runner() {
+	CommandLineRunner runner(LinkRepository linkRepo, CommentRepository commentRepo) {
 		return args -> {
-			System.out.println("This is from dev");
+			Link link = new Link("Getting Started with spring boot 2","https://google.com");
+			linkRepo.save(link);
+			
+			Comment comment =  new Comment();
+			comment.setBody("This is the body");
+			comment.setLink(link);
+			
+			commentRepo.save(comment);
+			link.addComment(comment);
+			
+	
 		};
 	}
 }
