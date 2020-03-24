@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.homeProj</groupId>
-	<artifactId>springit</artifactId>
+	<artifactId>rateNews</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>redditClone</name>
-	<description>Reddit clone</description>
+	<name>wbsiteRating</name>
+	<description>Website rating</description>
 
 	<properties>
 		<java.version>11</java.version>
