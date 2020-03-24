@@ -14,7 +14,8 @@ import com.homeProj.repository.LinkRepository;
 public class DatabaseLoader implements CommandLineRunner {
 
     private LinkRepository linkRepository;
-    private CommentRepository commentRepository;
+    @SuppressWarnings("unused")
+	private CommentRepository commentRepository;
 
     public DatabaseLoader(LinkRepository linkRepository, CommentRepository commentRepository) {
         this.linkRepository = linkRepository;
