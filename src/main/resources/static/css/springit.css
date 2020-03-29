@@ -11,9 +11,11 @@ nav .nav-item {
     padding-right:10px;
 }
 
+
 button.nav-link {
     background: #2D2A27;
     border:none;
+    text-transform: uppercase;
     cursor: pointer;
 }
 
