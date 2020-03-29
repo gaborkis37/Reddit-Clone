@@ -13,7 +13,6 @@ import com.homeProj.config.SpringitProperties;
 
 @SpringBootApplication
 @EnableConfigurationProperties(SpringitProperties.class)
-@EnableJpaAuditing
 public class WebsiteRating {
 
 	public static void main(String[] args) {
