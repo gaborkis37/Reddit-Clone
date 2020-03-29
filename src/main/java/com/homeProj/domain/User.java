@@ -57,6 +57,14 @@ public class User implements UserDetails {
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Set<Role> roles = new HashSet<>();
 
+	public void addRole(Role role) {
+		roles.add(role);
+	}
+
+	public void addRoles(Set<Role> roles) {
+		roles.forEach(this::addRole);
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
