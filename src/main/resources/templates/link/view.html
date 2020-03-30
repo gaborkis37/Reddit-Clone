@@ -39,58 +39,65 @@
 					<time th:title="${link.getCreationDate()}"
 						th:datetime="${link.getCreationDate()}" class="live-timestamp"
 						th:text="${link.getPrettyTime()}">1 hour(s)</time>
-					by <a href="/" class="author" th:text="${link.createdBy()}">defaultUser</a>
+					by <a href="/" class="author" th:text="${link.getCreatedBy()}">defaultUser</a>
 				</p>
-				<p><a th:href="${link.url}" th:text="${link.url}" target="_blank"></a></p>
-				<p>	
+				<p>
+					<a th:href="${link.url}" th:text="${link.url}" target="_blank"></a>
+				</p>
+				<p>
 					<a th:href="@{'/link/' + ${link.id} + '#comments'}"
 						class="comments" th:text="|${link.getComments().size()} comments|"><i
-						class="fas fa-comments"></i> 0 comments</a>
-						<a href="#" class="share"><i class="fas fa-share-square"></i> share</a>
-			     </p>
+						class="fas fa-comments"></i> 0 comments</a> <a href="#" class="share"><i
+						class="fas fa-share-square"></i> share</a>
+				</p>
 
 
 
 
 			</div>
-        </div>
+		</div>
 
-        <!-- link comments -->
-        <div id="comments" class="comments">
-            <div class="row header">
-                <div class="col-1">&nbsp;</div>
-                <div class="col-11 title"
-					th:text="|all ${link.getComments().size()} comments|">
-                    all 21 comments
-                </div>
-            </div>
-            <div class="row addcomment">
-                <div class="col-1">&nbsp;</div>
-                <div class="col-11">
-                    <div class="form-group">
-                        <textarea class="form-control" id="comment"
-							rows="3"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Add Comment</button>
-                </div>
-            </div>
-            <!-- single comment -->
-            <div class="row comment">
-                <div class="col-1">&nbsp;</div>
-                <div class="col-11">
-                    <span><a href="#"><i class="far fa-user"></i> therealdanvega</a></span>
-                    <span><i class="far fa-clock"></i> 4 hours ago</span>
-                    <p class="body">It’s one thing I never care about, new releases of maven. Yet I do for most other things.. I really should take a look at any features released in the last while! Pull my dependencies, run my tests and upload to nexus. I don’t care for much else, I wonder what if any I’m missing.</p>
-                    <a href="#" class="permalink"><i
-						class="fas fa-link"></i> permalink</a>
-                    <a href="#" class="like"><i
-						class="far fa-thumbs-up"></i> Like</a>
-                </div>
-            </div>
+		<!-- link comments -->
+		<div id="comments" class="comments">
+			<div class="row header">
+				<div class="col-1">&nbsp;</div>
+				<div class="col-11 title"
+					th:text="|all ${link.getComments().size()} comments|">all 21
+					comments</div>
+			</div>
+			<div class="row addcomment">
+				<div class="col-1">&nbsp;</div>
+				<div class="col-11">
+					<div class="form-group">
+						<textarea class="form-control" id="comment" rows="3"></textarea>
+					</div>
+					<button type="submit" class="btn btn-primary">Add Comment</button>
+				</div>
+			</div>
+			<!-- single comment -->
+			<!-- single comment -->
+			<div class="row comment" th:each="comment : ${link.getComments()}">
+				<div class="col-1">&nbsp;</div>
+				<div class="col-11">
+					<span><a href="#" th:text="${comment.getCreatedBy()}"><i
+							class="far fa-user"></i> therealdanvega</a></span> <span
+						th:text="${comment.getPrettyTime()}"><i
+						class="far fa-clock"></i> 4 hours ago</span>
+					<p class="body" th:text="${comment.getBody()}">It’s one thing I
+						never care about, new releases of maven. Yet I do for most other
+						things.. I really should take a look at any features released in
+						the last while! Pull my dependencies, run my tests and upload to
+						nexus. I don’t care for much else, I wonder what if any I’m
+						missing.</p>
+					<a href="#" class="permalink"><i class="fas fa-link"></i>
+						permalink</a> <a href="#" class="like"><i class="far fa-thumbs-up"></i>
+						Like</a>
+				</div>
+			</div>
 
-        </div>
+		</div>
 
-    </div>
+	</div>
 
 </body>
 </html>
