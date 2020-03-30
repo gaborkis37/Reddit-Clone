@@ -31,7 +31,6 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @Getter
 @Setter
-@ToString
 public class Link extends Auditable {
 
 	@Id

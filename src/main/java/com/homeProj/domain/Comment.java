@@ -25,7 +25,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class Comment extends Auditable {
 
 	@Id
