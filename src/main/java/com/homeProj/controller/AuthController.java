@@ -3,8 +3,17 @@ package com.homeProj.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.homeProj.service.UserService;
+
 @Controller
 public class AuthController {
+
+	private UserService userService;
+
+	public AuthController(UserService userService) {
+		super();
+		this.userService = userService;
+	}
 
 	@GetMapping("/login")
 	public String login() {

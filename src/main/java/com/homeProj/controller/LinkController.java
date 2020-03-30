@@ -17,31 +17,31 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.homeProj.domain.Comment;
 import com.homeProj.domain.Link;
-import com.homeProj.repository.CommentRepository;
-import com.homeProj.repository.LinkRepository;
+import com.homeProj.service.CommentService;
+import com.homeProj.service.LinkService;
 
 @Controller
 public class LinkController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LinkController.class);
-	private LinkRepository linkRepo;
-	private CommentRepository commentRepo;
+	private LinkService linkService;
+	private CommentService commentService;
 
-	public LinkController(LinkRepository linkRepo, CommentRepository commentRepo) {
+	public LinkController(LinkService linkService, CommentService commentService) {
 		super();
-		this.linkRepo = linkRepo;
-		this.commentRepo = commentRepo;
+		this.linkService = linkService;
+		this.commentService = commentService;
 	}
 
 	@GetMapping("/")
 	public String list(Model model) {
-		model.addAttribute("links", linkRepo.findAll());
+		model.addAttribute("links", linkService.findAll());
 		return "link/list";
 	}
 
 	@GetMapping("link/{id}")
 	public String read(@PathVariable Long id, Model model) {
-		Optional<Link> link = linkRepo.findById(id);
+		Optional<Link> link = linkService.findById(id);
 		if (link.isPresent()) {
 			Link currentLink = link.get();
 			Comment comment = new Comment();
@@ -70,24 +70,24 @@ public class LinkController {
 			model.addAttribute("link", link);
 			return "link/submit";
 		} else {
-			linkRepo.save(link);
+			linkService.save(link);
 			LOGGER.info("New link was saved successfuly");
 			redirectAttributes.addAttribute("id", link.getId()).addFlashAttribute("success", true);
 			return "redirect:/link/{id}";
 		}
 	}
-	
-	@Secured({"ROLE_USER", "ROLE_ADMIN"})
+
+	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
 	@PostMapping("/link/comments")
 	public String comments(@Valid Comment comment, BindingResult bindigResult) {
 		if (bindigResult.hasErrors()) {
 			LOGGER.info("there was a problem while adding a new comment");
 		} else {
-			commentRepo.save(comment);
+			commentService.save(comment);
 			LOGGER.info("comment was saved successfully");
 		}
 
-		return "redirect:/link/" + 	comment.getLink().getId();
+		return "redirect:/link/" + comment.getLink().getId();
 	}
 
 }
