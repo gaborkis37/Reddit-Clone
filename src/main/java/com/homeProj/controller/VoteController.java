@@ -2,6 +2,7 @@ package com.homeProj.controller;
 
 import java.util.Optional;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +23,8 @@ public class VoteController {
 		this.voteRepo = voteRepo;
 		LinkRepo = linkRepo;
 	}
-
+	
+	@Secured({"ROLE_USER","ROLE_ADMIN"})
 	@GetMapping("/vote/link/{linkId}/direction/{direction}/votecount/{voteCount}")
 	public int vote(@PathVariable Long linkId, @PathVariable short direction, @PathVariable int voteCount) {
 		Optional<Link> optionalLink = LinkRepo.findById(linkId);
