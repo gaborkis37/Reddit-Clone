@@ -26,6 +26,7 @@ public class DatabaseLoader implements CommandLineRunner {
 	private CommentRepository commentRepository;
 	private UserRepository userRepo;
 	private RoleRepository roleRepo;
+	private Map<String, User> users = new HashMap<>();
 
 	public DatabaseLoader(LinkRepository linkRepository, CommentRepository commentRepository, UserRepository userRepo,
 			RoleRepository roleRepo) {
@@ -70,17 +71,27 @@ public class DatabaseLoader implements CommandLineRunner {
 				"https://www.jeejava.com/file-download-example-using-spring-rest-controller/");
 
 		links.forEach((k, v) -> {
-			Link link = new Link(k,v);
+			User u1 = users.get("user@gmail.com");
+			User u2 = users.get("master@gmail.com");
+			Link link = new Link(k, v);
+			if (k.startsWith("Build")) {
+				link.setUser(u1);
+			} else {
+				link.setUser(u2);
+			}
+
 			linkRepository.save(link);
-			
-			Comment spring = new Comment("Thank you for this link related to Spring Boot. I love it, great post!",link);
-		    Comment security = new Comment("I love that you're talking about Spring Security",link);
-		    Comment pwa = new Comment("What is this Progressive Web App thing all about? PWAs sound really cool.",link);
-		    Comment comments[] = {spring,security,pwa};
-		    for(Comment comment : comments) {
-		        commentRepository.save(comment);
-		        link.addComment(comment);
-		    }
+
+			Comment spring = new Comment("Thank you for this link related to Spring Boot. I love it, great post!",
+					link);
+			Comment security = new Comment("I love that you're talking about Spring Security", link);
+			Comment pwa = new Comment("What is this Progressive Web App thing all about? PWAs sound really cool.",
+					link);
+			Comment comments[] = { spring, security, pwa };
+			for (Comment comment : comments) {
+				commentRepository.save(comment);
+				link.addComment(comment);
+			}
 		});
 
 		long linkCount = linkRepository.count();
@@ -96,17 +107,20 @@ public class DatabaseLoader implements CommandLineRunner {
 		Role adminRole = new Role("ROLE_ADMIN");
 		roleRepo.save(adminRole);
 
-		User user = new User("user@gmail.com", secret, true);
+		User user = new User("user@gmail.com", secret, true, "Joe", "User", "joe");
 		user.addRole(userRole);
 		userRepo.save(user);
+		users.put("user@gmail.com", user);
 
-		User admin = new User("admin@gmail.com", secret, true);
+		User admin = new User("admin@gmail.com", secret, true, "Joe", "Admin", "masteradmin");
 		admin.addRole(adminRole);
 		userRepo.save(admin);
+		users.put("admin@gmail.com", admin);
 
-		User master = new User("master@gmail.com", secret, true);
+		User master = new User("master@gmail.com", secret, true, "super", "User", "superduper");
 		master.addRoles(new HashSet<>(Arrays.asList(userRole, adminRole)));
 		userRepo.save(master);
+		users.put("master@gmail.com", master);
 
 	}
 }

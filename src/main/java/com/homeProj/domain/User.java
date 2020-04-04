@@ -1,9 +1,7 @@
 package com.homeProj.domain;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,12 +13,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -56,6 +57,27 @@ public class User implements UserDetails {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Set<Role> roles = new HashSet<>();
+
+	@NonNull
+	@NotNull(message = "You must enter a first name.")
+	private String firstName;
+
+	@NonNull
+	@NotNull(message = "You must enter a lastName name.")
+	private String lastName;
+
+	@Transient
+	@Setter(AccessLevel.NONE)
+	private String fullName;
+
+	@NonNull
+	@NotNull
+	@Column(nullable = false, unique = true)
+	private String alias;
+
+	public String getFullName() {
+		return firstName + " " + lastName;
+	}
 
 	public void addRole(Role role) {
 		roles.add(role);
