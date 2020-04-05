@@ -14,12 +14,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.homeProj.domain.validator.PasswordsMatch;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -35,6 +38,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@PasswordsMatch
 public class User implements UserDetails {
 
 	@Id
@@ -74,6 +78,10 @@ public class User implements UserDetails {
 	@NotNull
 	@Column(nullable = false, unique = true)
 	private String alias;
+	
+	@Transient
+	@NotEmpty(message = "please enter Password confirmation")
+	private String confirmPassword;
 
 	public String getFullName() {
 		return firstName + " " + lastName;
