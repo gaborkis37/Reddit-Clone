@@ -82,6 +82,8 @@ public class User implements UserDetails {
 	@Transient
 	@NotEmpty(message = "please enter Password confirmation")
 	private String confirmPassword;
+	
+	private String activationCode;
 
 	public String getFullName() {
 		return firstName + " " + lastName;

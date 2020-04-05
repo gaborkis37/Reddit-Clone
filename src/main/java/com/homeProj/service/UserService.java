@@ -1,5 +1,7 @@
 package com.homeProj.service;
 
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,12 +18,15 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final BCryptPasswordEncoder encoder;
 	private final RoleService roleService;
+	private final MailService mailService;
 
-	public UserService(UserRepository userRepository, BCryptPasswordEncoder encoder, RoleService roleService) {
+	public UserService(UserRepository userRepository, BCryptPasswordEncoder encoder, RoleService roleService,
+			MailService mailService) {
 		super();
 		this.userRepository = userRepository;
 		this.encoder = encoder;
 		this.roleService = roleService;
+		this.mailService = mailService;
 	}
 
 	public User register(User user) {
@@ -29,6 +34,7 @@ public class UserService {
 		user.setPassword(secret);
 		user.setConfirmPassword(secret);
 		user.addRole(roleService.findByName("ROLE_USER"));
+		user.setActivationCode(UUID.randomUUID().toString());
 		save(user);
 		sendActivationEmail(user);
 		return user;
@@ -39,6 +45,10 @@ public class UserService {
 	}
 
 	public void sendActivationEmail(User user) {
-		// send activation email
+		mailService.sendActivationEmail(user);
+	}
+
+	public void sendWelcomeEmail(User user) {
+		mailService.sendWelcomeEmail(user);	
 	}
 }
