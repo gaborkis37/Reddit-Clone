@@ -1,5 +1,6 @@
 package com.homeProj.service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -24,13 +25,13 @@ public class UserService {
 			MailService mailService) {
 		super();
 		this.userRepository = userRepository;
-		this.encoder = encoder;
+		this.encoder = new BCryptPasswordEncoder();
 		this.roleService = roleService;
 		this.mailService = mailService;
 	}
 
 	public User register(User user) {
-		String secret = "{bcrypt}" + encoder.encode(user.getPassword());
+		String secret = encoder.encode(user.getPassword());
 		user.setPassword(secret);
 		user.setConfirmPassword(secret);
 		user.addRole(roleService.findByName("ROLE_USER"));
@@ -50,5 +51,9 @@ public class UserService {
 
 	public void sendWelcomeEmail(User user) {
 		mailService.sendWelcomeEmail(user);	
+	}
+	
+	public Optional<User> findByEmailAndActivationCode(String email, String activationCode) {
+		return userRepository.findByEmailAndActivationCode(email, activationCode);
 	}
 }
