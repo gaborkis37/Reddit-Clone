@@ -2,30 +2,43 @@ package com.homeProj.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.homeProj.domain.User;
-import com.homeProj.repository.RoleRepository;
 import com.homeProj.repository.UserRepository;
 
 @Service
 public class UserService {
 
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
-	private UserRepository userRepository;
-	private RoleRepository roleRepository;
+	private final UserRepository userRepository;
+	private final BCryptPasswordEncoder encoder;
+	private final RoleService roleService;
 
-	public UserService(UserRepository userRepository, RoleRepository roleRepository) {
+	public UserService(UserRepository userRepository, BCryptPasswordEncoder encoder, RoleService roleService) {
+		super();
 		this.userRepository = userRepository;
-		this.roleRepository = roleRepository;
+		this.encoder = encoder;
+		this.roleService = roleService;
 	}
 
-	
 	public User register(User user) {
+		String secret = "{bcrypt}" + encoder.encode(user.getPassword());
+		user.setPassword(secret);
+		// confirm password later
+		user.addRole(roleService.findByName("ROLE_USER"));
+		save(user);
+		sendActivationEmail(user);
 		return user;
 	}
-	
+
 	public User save(User user) {
 		return userRepository.save(user);
+	}
+
+	public void sendActivationEmail(User user) {
+		// send activation email
 	}
 }
