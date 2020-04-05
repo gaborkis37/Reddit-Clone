@@ -1,5 +1,6 @@
 package com.homeProj.domain;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -39,7 +40,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @PasswordsMatch
-public class User implements UserDetails {
+public class User implements UserDetails  {
 
 	@Id
 	@GeneratedValue
@@ -84,6 +85,8 @@ public class User implements UserDetails {
 	private String confirmPassword;
 	
 	private String activationCode;
+	
+	private LocalDateTime created;
 
 	public String getFullName() {
 		return firstName + " " + lastName;

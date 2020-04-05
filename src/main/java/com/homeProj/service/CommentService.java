@@ -1,5 +1,7 @@
 package com.homeProj.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.homeProj.domain.Comment;
@@ -17,5 +19,9 @@ public class CommentService {
 
 	public Comment save(Comment comment) {
 		return commentRepository.save(comment);
+	}
+	
+	public List<Comment> findCommentsByCreator(String creator) {
+		return commentRepository.findByCreatedBy(creator);
 	}
 }

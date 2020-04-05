@@ -1,5 +1,6 @@
 package com.homeProj.service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -36,6 +37,7 @@ public class UserService {
 		user.setConfirmPassword(secret);
 		user.addRole(roleService.findByName("ROLE_USER"));
 		user.setActivationCode(UUID.randomUUID().toString());
+		user.setCreated(LocalDateTime.now());
 		save(user);
 		sendActivationEmail(user);
 		return user;
@@ -59,5 +61,9 @@ public class UserService {
 
 	public Optional<User> findByEmail(String email) {
 		return userRepository.findByEmail(email);
+	}
+	
+	public Optional<User> findByAlias(String alias) {
+		return userRepository.findByAlias(alias);
 	}
 }

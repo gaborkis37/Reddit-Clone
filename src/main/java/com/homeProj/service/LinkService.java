@@ -29,4 +29,8 @@ public class LinkService {
 	public Link save(Link link) {
 		return linkRepository.save(link);
 	}
+	
+	public List<Link> findByUserId(Long id) {
+		return linkRepository.findByUserId(id);
+	}
 }

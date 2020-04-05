@@ -1,134 +1,55 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layouts/main_layout :: head(title = 'Website rating')}">
+<head
+	th:replace="~{layouts/main_layout :: head(title = 'Website rating')}">
 </head>
 <body>
 
-    <nav th:replace="~{layouts/main_layout :: nav}"></nav>
-    <div th:replace="~{layouts/main_layout :: jumbotron}"></div>
+	<nav th:replace="~{layouts/main_layout :: nav}"></nav>
+	<div th:replace="~{layouts/main_layout :: jumbotron}"></div>
 
-    <!-- profile -->
-    <div id="profile" class="container">
+	<!-- profile -->
+	<div id="profile" class="container">
+		<div class="row">
+			<h3>Posts</h3>
+		</div>
 
-        <div class="row">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Overview</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Posts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Comments</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Preferences</a>
-                </li>
-            </ul>
-        </div>
+		<div class="row">
 
-        <div class="row">
+			<div class="col-8">
+				<div class="row" th:each="link : ${linksOfUser}">
+					<div class="card col-12" style="width: 18rem;">
+						<div class="card-body">
+							<a class="title " th:href="@{'/link/' + ${link.id}}"
+								th:text="${link.title}"> Title Goes Here </a> <span
+								class="domain">(<a th:href="${link.url}"
+								th:text="${link.getDomainName()}">default.com</a>)
+							</span>
+							<p class="tagline ">
+								submitted
+								<time th:title="${link.getCreationDate()}"
+									th:datetime="${link.getCreationDate()}" class="live-timestamp"
+									th:text="${link.getPrettyTime()}">1 hour(s)</time>
+								by <a th:href="@{'/u/' + ${link.getUser().getAlias()}}"
+									class="author" th:text="${link.getUser().getAlias()}">defaultUser</a>
+							</p>
+							<p>
+								<a th:href="@{'/link/' + ${link.id} + '#comments'}"
+									class="comments"
+									th:text="|${link.getComments().size()} comments|"><i
+									class="fas fa-comments"></i> 0 comments</a> <a href="/"
+									class="share"><i class="fas fa-share-square"></i> share</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div th:replace="~{layouts/main_layout :: accountRightSide}"></div>
+		</div>
 
-            <div class="col-8">
-                <div class="row">
-                    <div class="card col-12" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">What's new in Spring Boot 2</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">submitted 7 days ago by defaultUser</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">8 Comments</a>
-                            <a href="#" class="card-link">Share</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="card col-12" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">What's new in Spring Boot 2</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">submitted 7 days ago by therealdanvega</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">8 Comments</a>
-                            <a href="#" class="card-link">Share</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="card col-12" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">What's new in Spring Boot 2</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">submitted 7 days ago by therealdanvega</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">8 Comments</a>
-                            <a href="#" class="card-link">Share</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="card col-12" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">What's new in Spring Boot 2</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">submitted 7 days ago by therealdanvega</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">8 Comments</a>
-                            <a href="#" class="card-link">Share</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="card col-12" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">What's new in Spring Boot 2</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">submitted 7 days ago by therealdanvega</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">8 Comments</a>
-                            <a href="#" class="card-link">Share</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Right Side -->
-            <div class="col-3 offset-1">
-                <div class="row">
-                    <div class="card col-12">
-                        <img class="card-img-top" th:src="@{/images/profile_small.png}" alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">
-                                <a href="/u/therealdanvega">/u/therealdanvega</a>
-                            </p>
-                            <a href="../link/submit.html"><button type="button" class="btn btn-primary btn-lg btn-block">New Post</button></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="card col-12">
-                        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                        <div class="card-body">
-                            <h5 class="card-title">Your Information</h5>
-                            <p class="card-text">
-                                Posts: 10<br/>
-                                Comments: 3<br/>
-                                User Since: November 23, 2017<br/>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="card col-12">
-                        <h5 class="card-title recentLinks">Recent Links Clicked</h5>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><a href="#">What's new in Spring Boot 2</a></li>
-                            <li class="list-group-item"><a href="#">10 Features in Java 10</a></li>
-                            <li class="list-group-item"><a href="#">9 Features in Java 9</a></li>
-                            <li class="list-group-item"><a href="#">8 Features in Java 8</a></li>
-                            <li class="list-group-item"><a href="#">7 Reasons not to use Java 7</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
 
-        </div> <!-- // row -->
+	</div>
 
-    </div><!-- // profile -->
 
 </body>
 </html>
