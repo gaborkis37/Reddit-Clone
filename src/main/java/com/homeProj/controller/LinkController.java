@@ -1,5 +1,6 @@
 package com.homeProj.controller;
 
+import java.security.Principal;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -17,20 +18,24 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.homeProj.domain.Comment;
 import com.homeProj.domain.Link;
+import com.homeProj.domain.User;
 import com.homeProj.service.CommentService;
 import com.homeProj.service.LinkService;
+import com.homeProj.service.UserService;
 
 @Controller
 public class LinkController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LinkController.class);
-	private LinkService linkService;
-	private CommentService commentService;
+	private final LinkService linkService;
+	private final CommentService commentService;
+	private final UserService userService;
 
-	public LinkController(LinkService linkService, CommentService commentService) {
+	public LinkController(LinkService linkService, CommentService commentService, UserService userService) {
 		super();
 		this.linkService = linkService;
 		this.commentService = commentService;
+		this.userService = userService;
 	}
 
 	@GetMapping("/")
@@ -64,12 +69,18 @@ public class LinkController {
 
 	@PostMapping("/link/submit")
 	public String createLink(@Valid Link link, BindingResult bindingResult, Model model,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes, Principal principal) {
 		if (bindingResult.hasErrors()) {
 			LOGGER.info("Validation errors were found while submitting a new link");
 			model.addAttribute("link", link);
 			return "link/submit";
 		} else {
+			String email  = principal.getName();
+			Optional<User> user = userService.findByEmail(email);
+			if(user.isPresent()) {
+				User creator = user.get();
+				link.setUser(creator);
+			}
 			linkService.save(link);
 			LOGGER.info("New link was saved successfuly");
 			redirectAttributes.addAttribute("id", link.getId()).addFlashAttribute("success", true);
