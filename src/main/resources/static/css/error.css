@@ -1,0 +1,10 @@
+body{background-color: #808080}
+.error-template {padding: 40px 15px;text-align: center;}
+.error-actions {margin-top:15px;margin-bottom:15px;}
+.error-actions .btn { margin-right:10px; }
+
+.btn btn-primary btn-lg {
+	position: absolute;
+	top:50%;
+	right:50%;
+}
