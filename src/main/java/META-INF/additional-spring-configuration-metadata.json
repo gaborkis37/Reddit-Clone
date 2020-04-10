@@ -2,11 +2,11 @@
   {
     "name": "mailservice.mail.from",
     "type": "java.lang.String",
-    "description": "A description for 'mailservice.mail.from'"
+    "description": "This property is used for defining the email of the sender"
   },
   {
     "name": "mailservice.base.url",
     "type": "java.lang.String",
-    "description": "A description for 'mailservice.base.url'"
+    "description": "This property is used for defining the base url of the site"
   }
 ]}

@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.homeProj</groupId>
 	<artifactId>rateNews</artifactId>
-	<version>0.0.10-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<name>wbsiteRating</name>
 	<description>Website rating</description>
 
