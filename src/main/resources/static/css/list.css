@@ -1,0 +1,6 @@
+.isDisabledDownVote {
+	color: red;
+	cursor: not-allowed;
+	opacity: 0.5;
+	text-decoration: none;
+}

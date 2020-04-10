@@ -40,10 +40,10 @@ public class DatabaseLoader implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 		addUsersAndRoles();
-		addLinks();
+		addLinksAndComments();
 	}
 
-	private void addLinks() {
+	private void addLinksAndComments() {
 		Map<String, String> links = new HashMap<>();
 		links.put("Securing Spring Boot APIs and SPAs with OAuth 2.0",
 				"https://auth0.com/blog/securing-spring-boot-apis-and-spas-with-oauth2/?utm_source=reddit&utm_medium=sc&utm_campaign=springboot_spa_securing");

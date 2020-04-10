@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head
 	th:replace="~{layouts/main_layout :: head(title='Website rating')}">
+
 </head>
 <body>
 	<nav th:replace="~{layouts/main_layout :: nav}"></nav>
@@ -12,18 +13,18 @@
 		<!-- links -->
 		<div class="row link" th:each="link : ${links}">
 			<div class="col-1">
-				<div>
-					<a href="#" class="upvote" th:data-id="${link.id}"><i
-						class="fas fa-arrow-up"></i></a>
-				</div>
+
+				<a href="#" class="upvote" th:data-id="${link.id}"><i
+					class="fas fa-arrow-up"></i></a>
+
 				<div>
 					<span th:id="|votecount-${link.id}|" class="votecount"
 						th:text="${link.getVoteCount()}">0</span>
 				</div>
-				<div>
-					<a href="#" class="downvote" th:data-id="${link.id}"
-						th:disabled="true"><i class="fas fa-arrow-down"></i></a>
-				</div>
+
+				<a href="#" class="downvote" th:data-id="${link.id}"
+					th:disabled="true"><i class="fas fa-arrow-down"></i></a>
+
 			</div>
 			<div class="col-11">
 				<p class="title">
@@ -38,7 +39,8 @@
 					<time th:title="${link.getCreationDate()}"
 						th:datetime="${link.getCreationDate()}" class="live-timestamp"
 						th:text="${link.getPrettyTime()}">1 hour(s)</time>
-					by <a th:href="@{'/u/' + ${link.getUser().getAlias()}}" class="author" th:text="${link.getUser().getAlias()}">defaultUser</a>
+					by <a th:href="@{'/u/' + ${link.getUser().getAlias()}}"
+						class="author" th:text="${link.getUser().getAlias()}">defaultUser</a>
 				</p>
 				<p>
 					<a th:href="@{'/link/' + ${link.id} + '#comments'}"
@@ -50,7 +52,7 @@
 		</div>
 
 	</div>
-	
+
 	<script>
 	    const allvotes = document.querySelectorAll(".upvote, .downvote");
 	    for(let i=0; i<allvotes.length; i++) {
@@ -67,9 +69,9 @@
 	        });
 	    }
     </script>
-    
-    <br/>
-    <br/>
-    <br/>
+
+	<br />
+	<br />
+	<br />
 </body>
 </html>

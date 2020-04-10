@@ -3,34 +3,16 @@ package com.homeProj.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Service;
-
 import com.homeProj.domain.Link;
-import com.homeProj.repository.LinkRepository;
 
-@Service
-public class LinkService {
+public interface LinkService {
 
-	private final LinkRepository linkRepository;
+	List<Link> findAll();
 
-	public LinkService(LinkRepository linkRepository) {
-		super();
-		this.linkRepository = linkRepository;
-	}
+	Optional<Link> findById(Long id);
 
-	public List<Link> findAll() {
-		return linkRepository.findAll();
-	}
+	Link save(Link link);
 
-	public Optional<Link> findById(Long id) {
-		return linkRepository.findById(id);
-	}
+	List<Link> findByUserId(Long id);
 
-	public Link save(Link link) {
-		return linkRepository.save(link);
-	}
-	
-	public List<Link> findByUserId(Long id) {
-		return linkRepository.findByUserId(id);
-	}
 }

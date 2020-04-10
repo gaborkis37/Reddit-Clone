@@ -40,7 +40,9 @@ import lombok.ToString;
 @Setter
 @ToString
 @PasswordsMatch
-public class User implements UserDetails  {
+public class User implements UserDetails {
+
+	private static final long serialVersionUID = -1485245158129463507L;
 
 	@Id
 	@GeneratedValue
@@ -54,7 +56,7 @@ public class User implements UserDetails  {
 	@NonNull
 	@Column(length = 100)
 	private String password;
-
+	
 	@NonNull
 	@Column(nullable = false)
 	private boolean enabled;
@@ -79,13 +81,13 @@ public class User implements UserDetails  {
 	@NotNull
 	@Column(nullable = false, unique = true)
 	private String alias;
-	
+
 	@Transient
 	@NotEmpty(message = "please enter Password confirmation")
 	private String confirmPassword;
-	
+
 	private String activationCode;
-	
+
 	private LocalDateTime created;
 
 	public String getFullName() {
@@ -107,31 +109,26 @@ public class User implements UserDetails  {
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
 		return email;
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return enabled;
 	}
 

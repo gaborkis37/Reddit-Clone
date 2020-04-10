@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -19,15 +18,20 @@ import lombok.Setter;
 @Setter
 public class Vote extends Auditable {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+	@Id
+	@GeneratedValue
+	private Long id;
 
-    @NonNull
-    private short direction;
+	@NonNull
+	private short direction;
 
-    @NonNull
-    @ManyToOne
-    private Link link;
+	@NonNull
+	@ManyToOne
+	private Link link;
+
+	@Override
+	public String toString() {
+		return "Vote [id=" + id + ", direction=" + direction + ", link=" + link + "]";
+	}
 
 }

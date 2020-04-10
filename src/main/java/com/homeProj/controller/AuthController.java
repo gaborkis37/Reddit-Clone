@@ -19,19 +19,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.homeProj.domain.Comment;
 import com.homeProj.domain.Link;
 import com.homeProj.domain.User;
-import com.homeProj.service.CommentService;
 import com.homeProj.service.LinkService;
-import com.homeProj.service.UserService;
+import com.homeProj.service.UsersService;
+import com.homeProj.serviceImpl.CommentServiceImpl;
 
 @Controller
 public class AuthController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
-	private final UserService userService;
+	private final UsersService userService;
 	private final LinkService linkService;
-	private final CommentService commentService;
+	private final CommentServiceImpl commentService;
 
-	public AuthController(UserService userService, LinkService linkService, CommentService commentService) {
+	public AuthController(UsersService userService, LinkService linkService, CommentServiceImpl commentService) {
 		super();
 		this.userService = userService;
 		this.linkService = linkService;
