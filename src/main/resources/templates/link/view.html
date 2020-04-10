@@ -17,8 +17,8 @@
 		<div class="row link">
 			<div class="col-1">
 
-				<a href="#" class="upvote" th:data-id="${link.id}"><i
-					class="fas fa-arrow-up"></i></a>
+				<a href="#" onclick="changeAvailability()" class="upvote"
+					th:data-id="${link.id}"><i class="fas fa-arrow-up"></i></a>
 
 				<div>
 					<span th:id="|votecount-${link.id}|" class="votecount"
@@ -107,7 +107,7 @@
 
 	</div>
 
-	<script>
+	<script sec:authorize="isFullyAuthenticated()">
         const allvotes = document.querySelectorAll(".upvote, .downvote");
         for(let i=0; i<allvotes.length; i++) {
             let className = allvotes[i].className;
