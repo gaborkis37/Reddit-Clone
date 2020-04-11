@@ -95,11 +95,11 @@
 		<div class="col-3 offset-1" th:fragment="accountRightSide">
 			<div class="row">
 				<div class="card col-12">
-					<img class="card-img-top"
-						th:src="@{/images/default-profile-picture.jpg}"
-						alt="Card image cap">
+						<img class="card-img-top" th:if="${user.getProfilePicture() != null}" th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.getProfilePicture())}}" alt="Card image cap"/> 
+						<img class="card-img-top" th:if="${user.getProfilePicture() == null}" th:src="@{/images/default-profile-picture.jpg}" alt="Card image cap" />
 					<div class="card-body">
-						<a href="../link/submit"><button type="button"
+						<a th:if="${user.getProfilePicture() == null}" href="/upload">Upload a profile picture</a> <a
+							href="../link/submit"><button type="button"
 								class="btn btn-primary btn-lg btn-block">New Post</button></a>
 					</div>
 				</div>

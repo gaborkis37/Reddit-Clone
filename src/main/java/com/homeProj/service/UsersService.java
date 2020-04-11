@@ -2,6 +2,8 @@ package com.homeProj.service;
 
 import java.util.Optional;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.homeProj.domain.User;
 
 public interface UsersService {
@@ -19,5 +21,7 @@ public interface UsersService {
 	Optional<User> findByEmail(String email);
 
 	Optional<User> findByAlias(String alias);
+	
+	void storeProfilePicture(User user, MultipartFile file);
 
 }

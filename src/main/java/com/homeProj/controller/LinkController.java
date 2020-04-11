@@ -1,6 +1,7 @@
 package com.homeProj.controller;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -40,7 +41,8 @@ public class LinkController {
 
 	@GetMapping("/")
 	public String list(Model model) {
-		model.addAttribute("links", linkService.findAll());
+		List<Link> links = linkService.findAll();
+		model.addAttribute("links", links);
 		return "link/list";
 	}
 
@@ -75,9 +77,9 @@ public class LinkController {
 			model.addAttribute("link", link);
 			return "link/submit";
 		} else {
-			String email  = principal.getName();
+			String email = principal.getName();
 			Optional<User> user = userService.findByEmail(email);
-			if(user.isPresent()) {
+			if (user.isPresent()) {
 				User creator = user.get();
 				link.setUser(creator);
 			}

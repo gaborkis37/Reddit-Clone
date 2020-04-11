@@ -1,5 +1,6 @@
 package com.homeProj.serviceImpl;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
@@ -8,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.homeProj.domain.User;
 import com.homeProj.repository.UserRepository;
@@ -71,9 +74,25 @@ public class UserServiceImpl implements UsersService {
 	public Optional<User> findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
-	
+
 	@Override
 	public Optional<User> findByAlias(String alias) {
 		return userRepository.findByAlias(alias);
+	}
+	
+	@Override
+	public void storeProfilePicture(User user, MultipartFile file) {
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		try {
+			if (fileName.contains("..")) {
+				LOGGER.info("Sorry! Filename contains invalid path sequence " + fileName);
+			}
+
+			user.setProfilePicture(file.getBytes());
+			userRepository.save(user);
+		} catch (IOException ex) {
+			LOGGER.info("Could not store file " + fileName + ". Please try again!");
+
+		}
 	}
 }

@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
@@ -89,6 +90,9 @@ public class User implements UserDetails {
 	private String activationCode;
 
 	private LocalDateTime created;
+	
+	@Lob
+    private byte[] profilePicture;
 
 	public String getFullName() {
 		return firstName + " " + lastName;
