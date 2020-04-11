@@ -89,6 +89,7 @@ public class DatabaseLoader implements CommandLineRunner {
 					link);
 			Comment comments[] = { spring, security, pwa };
 			for (Comment comment : comments) {
+				comment.setCreatorsAlias(u2.getAlias());
 				commentRepository.save(comment);
 				link.addComment(comment);
 			}

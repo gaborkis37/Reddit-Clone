@@ -92,10 +92,16 @@ public class LinkController {
 
 	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
 	@PostMapping("/link/comments")
-	public String comments(@Valid Comment comment, BindingResult bindigResult) {
+	public String comments(@Valid Comment comment, BindingResult bindigResult, Principal principal) {
+		/**
+		 * We don't have to use Optional here because if we can get here 
+		 * we have to be authenticated so user surely exists
+		 */
+		User user = userService.findByEmail(principal.getName()).get();
 		if (bindigResult.hasErrors()) {
 			LOGGER.info("there was a problem while adding a new comment");
 		} else {
+			comment.setCreatorsAlias(user.getAlias());
 			commentService.save(comment);
 			LOGGER.info("comment was saved successfully");
 		}

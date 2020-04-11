@@ -36,6 +36,8 @@ public class Comment extends Auditable {
 	@ManyToOne
 	@NonNull
 	private Link link;
+	
+	private String creatorsAlias;
 
 	public String getPrettyTime() {
 		PrettyTime pt = BeanUtil.getBean(PrettyTime.class);
