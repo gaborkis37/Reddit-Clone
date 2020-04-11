@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head
+    th:replace="~{layouts/main_layout :: head(title = 'Website rating')}">
+</head>
+<body>
+
+    <nav th:replace="~{layouts/main_layout :: nav}"></nav>
+    <div th:replace="~{layouts/main_layout :: jumbotron}"></div>
+
+    <!-- profile -->
+    <div id="profile" class="container">
+
+        <div class="row">
+            <h3>Posts</h3>
+        </div>
+
+        <div class="row">
+
+            <div class="col-8">
+                <div class="row" th:each="link : ${linksOfUser}">
+                    <div class="card col-12" style="width: 18rem;">
+                        <div class="card-body">
+                            <a class="title " th:href="@{'/link/' + ${link.id}}"
+                                th:text="${link.title}"> Title Goes Here </a> <span
+                                class="domain">(<a th:href="${link.url}"
+                                th:text="${link.getDomainName()}">default.com</a>)
+                            </span>
+                            <p class="tagline ">
+                                submitted
+                                <time th:title="${link.getCreationDate()}"
+                                    th:datetime="${link.getCreationDate()}" class="live-timestamp"
+                                    th:text="${link.getPrettyTime()}">1 hour(s)</time>
+                                by <a th:href="@{'/u/' + ${link.getUser().getAlias()}}"
+                                    class="author" th:text="${link.getUser().getAlias()}">defaultUser</a>
+                            </p>
+                            <p>
+                                <a th:href="@{'/link/' + ${link.id} + '#comments'}"
+                                    class="comments"
+                                    th:text="|${link.getComments().size()} comments|"><i
+                                    class="fas fa-comments"></i> 0 comments</a> <a href="/"
+                                    class="share"><i class="fas fa-share-square"></i> share</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-3 offset-1">
+                <div class="row">
+                    <div class="card col-12">
+                        <img class="card-img-top" th:if="${hasLogo == true}"
+                            th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.getProfilePicture())}}"
+                            alt="Card image cap" /> <img class="card-img-top"
+                            th:if="${hasLogo == false}"
+                            th:src="@{/images/default-profile-picture.jpg}"
+                            alt="Card image cap" />
+                        <div class="card-body">
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card col-12">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="'Details of ' + ${user.alias}">Default Information</h5>
+                            Posts: <span class="card-text" th:text="${numOfLinks}">0</span> <br>
+                            Comments: <span class="card-text" th:text="${numOfComments}">0</span>
+                            <br> User Since: <span class="card-text"
+                                th:text="${#temporals.format(userSince, 'yyyy.MM.dd.')}">2020</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <br>
+    <br>
+    </div>
+
+
+</body>
+</html>

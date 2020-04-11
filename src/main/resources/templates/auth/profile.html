@@ -10,7 +10,7 @@
 
 	<!-- profile -->
 	<div id="profile" class="container">
-	
+
 		<div class="row">
 			<h3>Posts</h3>
 		</div>
@@ -44,12 +44,42 @@
 						</div>
 					</div>
 				</div>
-				
+
 			</div>
-			<div th:replace="~{layouts/main_layout :: accountRightSide}"></div>
+			<div class="col-3 offset-1">
+				<div class="row">
+					<div class="card col-12">
+						<img class="card-img-top" th:if="${hasLogo == true}"
+							th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.getProfilePicture())}}"
+							alt="Card image cap" /> <img class="card-img-top"
+							th:if="${hasLogo == false}"
+							th:src="@{/images/default-profile-picture.jpg}"
+							alt="Card image cap" />
+						<div class="card-body">
+							<a th:if="${user.getProfilePicture() == null}" href="/upload"><button
+									type="button" class="btn btn-primary btn-lg btn-block">Upload
+									profile picture</button></a> <br> <a href="../link/submit"><button
+									type="button" class="btn btn-primary btn-lg btn-block">New
+									Post</button></a>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="card col-12">
+						<div class="card-body">
+							<h5 class="card-title">Your Information</h5>
+							Posts: <span class="card-text" th:text="${numOfLinks}">0</span> <br>
+							Comments: <span class="card-text" th:text="${numOfComments}">0</span>
+							<br> User Since: <span class="card-text"
+								th:text="${#temporals.format(userSince, 'yyyy.MM.dd.')}">2020</span>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
-
+    <br>
+    <br>
 	</div>
 
 
