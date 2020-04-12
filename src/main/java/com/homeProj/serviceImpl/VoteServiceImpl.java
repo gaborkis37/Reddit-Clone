@@ -112,4 +112,5 @@ public class VoteServiceImpl implements VoteService {
 	private boolean isAnUpvote(short direction) {
 		return direction == 1;
 	}
+	
 }

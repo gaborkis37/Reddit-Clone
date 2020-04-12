@@ -1,26 +1,40 @@
-body {
-    background: #EBF0F4;
+h4 { font-family: 'Open Sans'; margin: 0;}
+
+.modal,body.modal-open {
+    padding-right: 0!important
 }
 
-#profile a.nav-link {
-    text-transform: uppercase;
-}
-#profile a.nav-link.active {
-    border-bottom: 1px solid blue;
+body.modal-open {
+    overflow: auto
 }
 
-#profile > .row:first-child {
-    margin-bottom:20px;
+body.scrollable {
+    overflow-y: auto
 }
 
-.card {
-    margin-bottom: 5px;
+.modal-footer {
+    display: flex;
+    justify-content: flex-start;
+    .btn {
+        position: absolute;
+        right: 10px;
+    }
 }
 
-.card-img-top {
-    padding-top:10px;
+#picSize {
+ 
+          width: 500px;
+ 
+          height:100% !important;
+ 
 }
-
-.recentLinks {
-    padding-top:10px;
-}
+ 
+#modal-conent-id  {
+ 
+    
+ 
+    height: 80%;
+ 
+ 
+}       
+ 

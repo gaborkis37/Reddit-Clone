@@ -89,10 +89,16 @@ public class UserServiceImpl implements UsersService {
 			}
 
 			user.setProfilePicture(file.getBytes());
-			userRepository.save(user);
+			save(user);
 		} catch (IOException ex) {
 			LOGGER.info("Could not store file " + fileName + ". Please try again!");
 
 		}
+	}
+	
+	@Override
+	public void deleteProfilePicture(User user) {
+		user.setProfilePicture(null);
+		save(user);
 	}
 }

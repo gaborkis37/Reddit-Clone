@@ -21,7 +21,9 @@ public interface UsersService {
 	Optional<User> findByEmail(String email);
 
 	Optional<User> findByAlias(String alias);
-	
+
 	void storeProfilePicture(User user, MultipartFile file);
+
+	void deleteProfilePicture(User user);
 
 }

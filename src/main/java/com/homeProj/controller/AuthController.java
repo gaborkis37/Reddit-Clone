@@ -50,14 +50,16 @@ public class AuthController {
 			User currentUser = user.get();
 			List<Comment> comments = commentService.findCommentsByCreator(currentUser.getEmail());
 			List<Link> linksOfUser = linkService.findByUserId(currentUser.getId());
-			LOGGER.info("num of links by user: " + linksOfUser.size());
 			boolean hasLogo = currentUser.getProfilePicture() != null;
 			model.addAttribute("hasLogo", hasLogo);
 			model.addAttribute("user",currentUser);
 			model.addAttribute("numOfLinks", linksOfUser.size());
 			model.addAttribute("numOfComments", comments.size());
 			model.addAttribute("userSince", currentUser.getCreated());
-			model.addAttribute("linksOfUser", linksOfUser);		}
+			model.addAttribute("linksOfUser", linksOfUser);		
+			model.addAttribute("uploadSuccess", model.containsAttribute("uploadSuccess"));
+			model.addAttribute("deleteSuccess", model.containsAttribute("deleteSuccess"));
+		}
 		return "auth/profile";
 	}
 	
@@ -68,7 +70,6 @@ public class AuthController {
 			User currentUser = user.get();
 			List<Comment> comments = commentService.findCommentsByCreator(currentUser.getEmail());
 			List<Link> linksOfUser = linkService.findByUserId(currentUser.getId());
-			LOGGER.info("num of links by user: " + linksOfUser.size());
 			boolean hasLogo = currentUser.getProfilePicture() != null;
 			model.addAttribute("hasLogo", hasLogo);
 			model.addAttribute("user",currentUser);

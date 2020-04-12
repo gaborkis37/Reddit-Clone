@@ -118,6 +118,10 @@ a.share {
     padding-left:10px;
 }
 
+.eBtn {
+	cursor: pointer;
+}
+
 
 /* Registration */
 @media(min-width: 768px) {

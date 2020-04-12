@@ -94,8 +94,8 @@ public class LinkController {
 	@PostMapping("/link/comments")
 	public String comments(@Valid Comment comment, BindingResult bindigResult, Principal principal) {
 		/**
-		 * We don't have to use Optional here because if we can get here 
-		 * we have to be authenticated so user surely exists
+		 * We don't have to use Optional here because if we can get here we have to be
+		 * authenticated so user surely exists
 		 */
 		User user = userService.findByEmail(principal.getName()).get();
 		if (bindigResult.hasErrors()) {
