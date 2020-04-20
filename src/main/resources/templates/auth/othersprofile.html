@@ -78,6 +78,26 @@
     <br>
     <br>
     </div>
+    
+    <div aria-hidden="true" aria-labelledby="myModalLabel"
+        class="modal" id="viewOthersProfilePic" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" role="document" id="picSize">
+            <div class="modal-content" id="modal-content-id">
+                <div class="modal-body mb-0 p-0">
+                    <img th:if="${hasLogo == true}"
+                        th:src="@{'data:image/jpg;base64,' + *{T(org.springframework.util.Base64Utils).encodeToString(user.getProfilePicture())}}"
+                        alt="" style="width: 100%">
+                     <img th:if="${hasLogo == false}"
+                        th:src="@{/images/default-profile-picture.jpg}" alt="" style="width: 100%">
+                </div>
+                <div class="modal-footer">
+                    <button
+                        class="btn btn-outline-primary btn-rounded btn-md ml-4 text-center closePicBtn"
+                        data-dismiss="modal" type="button">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </body>

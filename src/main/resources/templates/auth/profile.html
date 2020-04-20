@@ -33,6 +33,9 @@
 			<div class="row">
 
 				<div class="col-8">
+				    <div th:if="${linksOfUser.size() == 0}">
+				        <h5>No posts yet</h5>
+				    </div>
 					<div class="row" th:each="link : ${linksOfUser}">
 						<div class="card col-12" style="width: 18rem;">
 							<div class="card-body">
@@ -72,12 +75,8 @@
 								th:src="@{/images/default-profile-picture.jpg}"
 								alt="Card image cap" /></a>
 							<div class="card-body">
-								<a th:if="${user.getProfilePicture() == null}"><button
-										type="button"
-										class="btn btn-primary btn-lg btn-block uploadBtn">
-										Upload profile picture</button></a> <br> <a href="../link/submit"><button
-										type="button" class="btn btn-primary btn-lg btn-block">New
-										Post</button></a>
+							    <br> 
+							    <a href="../link/submit"><button type="button" class="btn btn-primary btn-lg btn-block">New  Post</button></a>
 							</div>
 						</div>
 					</div>
@@ -101,9 +100,9 @@
 	</div>
 
 	<div class="editPicModal">
-		<div class="modal fade" id="profilepicUpdate" tabindex="-1"
+		<div class="modal" id="profilepicUpdate" tabindex="-1"
 			role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
+			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">What would you
@@ -139,9 +138,9 @@
 	</div>
 
 	<div class="uploadPicModal">
-		<div class="modal fade" id="profilepicUpload" tabindex="-1"
+		<div class="modal" id="profilepicUpload" tabindex="-1"
 			role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
+			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Choose a
@@ -185,8 +184,8 @@
 
 
 	<div aria-hidden="true" aria-labelledby="myModalLabel"
-		class="modal fade" id="viewProfilePic" role="dialog" tabindex="-1">
-		<div class="modal-dialog modal-lg" role="document" id="picSize">
+		class="modal" id="viewProfilePic" role="dialog" tabindex="-1">
+		<div class="modal-dialog modal-dialog-centered" role="document" id="picSize">
 			<div class="modal-content" id="modal-content-id">
 				<div class="modal-body mb-0 p-0">
 					<img th:if="${hasLogo == true}"
