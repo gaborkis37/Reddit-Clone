@@ -33,7 +33,7 @@ public class CommentRepositoryTest {
 		
 		Comment actual = commentRepo.save(expected);
 		
-		assertEquals(2, actual.getId());
+		assertEquals(1, actual.getId());
 		assertEquals(expected.getBody(), actual.getBody());
 		assertEquals(expected.getLink(), actual.getLink());
 		
