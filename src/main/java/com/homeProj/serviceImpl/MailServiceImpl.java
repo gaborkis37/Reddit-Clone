@@ -19,7 +19,7 @@ import com.homeProj.domain.User;
 import com.homeProj.service.EmailService;
 
 @Service
-@PropertySource("application-${spring.profiles.active}.properties")
+@PropertySource("classpath:application-${spring.profiles.active}.properties")
 public class MailServiceImpl implements EmailService {
 
     private final Logger log = LoggerFactory.getLogger(MailServiceImpl.class);
